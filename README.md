@@ -15,13 +15,15 @@ This project improves rider safety by ensuring that the electric ATV can only st
 
 ## Features
 
-- Prevents unsafe vehicle startup
-- Monitors brake pedal status
-- Detects accelerator pedal position
-- Verifies neutral gear condition
-- Controls vehicle startup using a 12V relay
-- Embedded implementation using STM32
-- Hardware implementation using NAND and NOR logic gates
+- Safety interlock for electric ATV startup
+- Brake, accelerator, and neutral gear validation
+- Push-button based vehicle start sequence
+- LCD-based user feedback for failed safety checks
+- Relay-controlled vehicle startup
+- TSAL indicator control
+- Interrupt-driven start button detection
+- STM32 embedded implementation
+- Hardware implementation using NAND/NOR logic gates
 
 ---
 
@@ -51,26 +53,30 @@ If any one of these conditions is not satisfied, the relay remains OFF and the v
 
 ## Technologies Used
 
-- Embedded C/C++
+- Embedded C++
 - STM32
 - PlatformIO
+- Arduino Framework for STM32
 - Digital Electronics
-- NAND & NOR Logic Gates
+- Interrupt Programming
+- GPIO Programming
+- I2C LCD Interface
 
 ---
 
 ## System Workflow
 
-1. Read the status of the brake switch.
-2. Read the accelerator input.
-3. Read the neutral gear switch.
-4. Verify that all safety conditions are satisfied.
-5. If all conditions are true:
-   - Activate the relay.
-   - Allow the vehicle to start.
-6. Otherwise:
-   - Keep the relay OFF.
-   - Prevent vehicle startup.
+1. Driver presses the start button.
+2. STM32 reads the brake switch.
+3. STM32 checks whether the accelerator is released.
+4. STM32 verifies that the gear is in Neutral.
+5. If all conditions are satisfied:
+   - Relay is activated.
+   - LCD displays "Vehicle Started!"
+   - Vehicle startup is enabled.
+6. If any condition fails:
+   - Vehicle startup is blocked.
+   - LCD displays the corresponding warning message.
 
 ---
 
